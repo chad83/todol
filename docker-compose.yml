@@ -1,0 +1,21 @@
+version: '3.3'
+
+services:
+  php-apache:
+    build: ./builds/phpapache
+    ports:
+      - 5000:8000
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+      - ./dbdata:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: todoldb
+      MYSQL_ROOT_PASSWORD: 123456
